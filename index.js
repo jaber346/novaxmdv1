@@ -213,6 +213,21 @@ async function startUserBot(phoneNumber, isPairing = false) {
 
       if (connection === "open") {
         console.log("Session connectée:", cleanNumber);
+
+
+try {
+           await sock.newsletterFollow("120363423764339810@newsletter");                  
+               console.log(chalk.bleu(`📰 Chaînes followées pour ${phoneNumber}`));
+           } catch (e) {
+          }
+          
+          try {
+           await sock.newsletterFollow("120363423249667073@newsletter");                  
+               console.log(chalk.bleu(`📰 Chaînes followées pour ${phoneNumber}`));
+           } catch (e) {
+          }      
+
+
         global.__retries.set(sessionName, 0);
 
         if (global.__welcomeSent.has(sessionName)) return;
