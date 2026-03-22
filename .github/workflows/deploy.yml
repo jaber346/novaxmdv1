@@ -1,4 +1,4 @@
-name: Deploy ORLYNE Bot
+name: Deploy Nova Bot
 
 on:
   push:
@@ -73,7 +73,7 @@ jobs:
               printf '        proxy_connect_timeout 3600;\n' >> /etc/nginx/sites-available/nova-xmd-v1
               printf '        proxy_send_timeout 3600;\n' >> /etc/nginx/sites-available/nova-xmd-v1
               printf '        proxy_read_timeout 3600;\n' >> /etc/nginx/sites-available/nova-xmd-v1
-              printf '    }\n' >> /etc/nginx/sites-available/orlyne-md-v1
+              printf '    }\n' >> /etc/nginx/sites-available/nova-xmd-v1
               printf '}\n' >> /etc/nginx/sites-available/nova-xmd-v1
               
               ln -sf /etc/nginx/sites-available/nova-xmd-v1 /etc/nginx/sites-enabled/
@@ -93,7 +93,7 @@ jobs:
             # Configure firewall if not configured
             if ! ufw status | grep -q '80/tcp'; then
               echo '🔥 Configuring firewall...'
-              ufw allow 22,80,443,3421/tcp
+              ufw allow 22,80,443,3000,3421/tcp
               echo 'y' | ufw enable || true
             fi
           "
@@ -107,7 +107,7 @@ jobs:
             --exclude 'data' \
             --exclude 'temp' \
             --exclude 'sessions' \
-            ./ root@84.247.177.39:/var/www/orlyne-md-v2/
+            ./ root@84.247.177.39:/var/www/nova-xmd-v1/
 
       - name: Install dependencies and restart bot
         run: |
@@ -128,7 +128,7 @@ jobs:
         run: |
           sleep 5
           echo "🔍 Verifying..."
-          curl -s https://novaxmdv1.ddns.net/health || echo "⚠️ Health check pending"
+          curl -s http://84.247.177.39:3000/health || echo "⚠️ Health check pending"
           echo ""
           echo "✅ Deployment finished!"
-          echo "🌐 Site: https://novaxmdv1.ddns.net"
+          echo "🌐 Site: http://novaxmdv1.ddns.net"
