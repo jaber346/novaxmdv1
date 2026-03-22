@@ -60,7 +60,7 @@ jobs:
               echo '🌐 Configuring Nginx...'
               printf '%s\n' 'server {' > /etc/nginx/sites-available/nova-xmd-v1
               printf '    listen 80;\n' >> /etc/nginx/sites-available/nova-xmd-v1
-              printf '    server_name orlyne-md-v2.duckdns.org;\n' >> /etc/nginx/sites-available/nova-xmd-v1
+              printf '    server_name novaxmdv1.ddns.net;\n' >> /etc/nginx/sites-available/nova-xmd-v1
               printf '\n' >> /etc/nginx/sites-available/nova-xmd-v1
               printf '    location / {\n' >> /etc/nginx/sites-available/nova-xmd-v1
               printf '        proxy_pass http://84.247.177.39:3000;\n' >> /etc/nginx/sites-available/nova-xmd-v1
